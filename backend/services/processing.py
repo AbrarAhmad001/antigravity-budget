@@ -5,7 +5,7 @@ from openai import OpenAI
 from datetime import datetime
 
 # OpenRouter Configuration
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "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")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "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")
 SITE_URL = os.getenv("SITE_URL", "http://localhost:5173")
 APP_NAME = "Antigravity Budget"
 
