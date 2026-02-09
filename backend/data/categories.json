@@ -1,0 +1,45 @@
+{
+    "expense": [
+        "food",
+        "entertainment",
+        "utilities",
+        "rent",
+        "groceries",
+        "clothing",
+        "self-care",
+        "medical",
+        "travel",
+        "Other",
+        "fitness",
+        "meal cost",
+        "lended money",
+        "dues paid",
+        "maid service"
+    ],
+    "income": [
+        "parents",
+        "borrowed",
+        "lend money received",
+        "VA work",
+        "freelance",
+        "youtube",
+        "gifts",
+        "job",
+        "competition",
+        "other"
+    ],
+    "savings": [
+        "investment fund",
+        "emergency fund",
+        "birthday celebration fund",
+        "competition/event fund",
+        "subscription fund",
+        "teams fund",
+        "courses fund"
+    ],
+    "vaults": [
+        "Bkash",
+        "Bank",
+        "Other"
+    ]
+}

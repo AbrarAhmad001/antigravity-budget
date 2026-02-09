@@ -20,11 +20,17 @@ CREDS_FILE = os.path.join(os.path.dirname(__file__), "..", "credentials.json")
 SHEET_ID = os.getenv("SHEET_ID", "1xy1Rl8VNvaUchMVaNzzUQtctfa8IAvtbVuaN5MvkKgY")
 
 class Transaction(BaseModel):
+    transaction_type: str
     date: str
-    amount: float
+    time: str = ""
     category: str
-    description: str
-    type: str
+    amount: float
+    vault_location: str = "Other"
+    description: str = ""
+    detail_source_item: str = ""
+    attachments: str = ""
+    secondary_date: str = ""
+    secondary_time: str = ""
 
 def get_sheet_client():
     """Initialize and return the Google Sheets client."""
@@ -68,14 +74,39 @@ def add_transaction_to_sheet(transaction: Transaction):
         # Open sheet by ID strictly (requires only Sheets API, not Drive API)
         sheet = client.open_by_key(SHEET_ID).sheet1
         
-        # Prepare row
+        # Prepare augmented description
+        # Include Vault and Details if they are not the same as description
+        desc_parts = [transaction.description]
+        if transaction.vault_location and transaction.vault_location != "Other":
+            desc_parts.append(f"[Vault: {transaction.vault_location}]")
+        if transaction.detail_source_item and transaction.detail_source_item != transaction.description:
+            desc_parts.append(f"[Detail: {transaction.detail_source_item}]")
+        
+        full_description = " ".join(desc_parts)
+        
+        # Parse date to extract Year and Month
+        try:
+            parsed_date = datetime.strptime(transaction.date, "%Y-%m-%d")
+            year = parsed_date.year
+            month = parsed_date.strftime("%B")  # Full month name
+        except ValueError:
+            # Fallback to current date if parsing fails
+            logger.warning(f"Could not parse transaction date '{transaction.date}', using current date")
+            parsed_date = datetime.now()
+            year = parsed_date.year
+            month = parsed_date.strftime("%B")
+
+        # Prepare row based on updated schema (8 columns):
+        # 1. Date, 2. Amount, 3. Category, 4. Type, 5. Description, 6. Timestamp, 7. Year, 8. Month
         row = [
             transaction.date,
-            str(transaction.amount),
+            float(transaction.amount),  # Store as number, not string
             transaction.category,
-            transaction.type,
-            transaction.description,
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Timestamp
+            transaction.transaction_type,
+            full_description,
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            year,
+            month
         ]
         
         sheet.append_row(row)

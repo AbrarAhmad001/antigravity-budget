@@ -71,7 +71,7 @@ const Capture = ({ onProcessed }) => {
                     <div className="fade-in">
                         <textarea
                             rows={4}
-                            placeholder="e.g. Lunch $10, Dinner $20, Salary $2000"
+                            placeholder="e.g. Lunch 500 BDT from Bkash. Saved 2000 in emergency fund from income."
                             value={textInput}
                             onChange={e => setTextInput(e.target.value)}
                         />
