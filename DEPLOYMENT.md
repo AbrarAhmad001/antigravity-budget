@@ -6,7 +6,7 @@ Complete guide to deploying Antigravity Budget to production.
 
 - **Backend**: Railway (FastAPI + Python)
 - **Frontend**: Vercel (React + Vite)  
-- **Database**: Google Sheets
+- **Database**: Google Sheets (Transactions) + JSON Files (Budgets/Categories)
 - **AI**: OpenRouter (Google Gemini)
 
 ## Prerequisites
@@ -162,12 +162,13 @@ Go back to **Railway** → **Variables**:
 **Symptom**: "No transactions extracted"
 **Fix**: Check `OPENROUTER_API_KEY` is correct in Railway
 
-### Backend 500 Error (Google Sheets)
+### Backend 500 Error (Google Sheets or File I/O)
 **Symptom**: "Simulated" save or credentials error
 **Fix**: 
 1. Verify `GOOGLE_CREDENTIALS_JSON` is set
 2. Check Google Sheet is shared with service account
 3. Enable Drive API in Google Cloud Console
+4. **Note:** JSON files (`budgets.json`, `categories.json`) are stored on the filesystem. On Railway ephemeral disk, these reset on deploy. For permanent storage, use a Railway Volume or Volume Mount if needed (though Google Sheets is the primary DB).
 
 ### Frontend Can't Connect
 **Symptom**: Network errors in browser console

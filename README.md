@@ -12,6 +12,8 @@ An intelligent expense tracker that uses AI to automatically extract and categor
 - 📊 **Google Sheets Integration**: Automatically saves all transactions to your spreadsheet
 - ✏️ **Edit & Confirm**: Review and modify extracted transactions before saving
 - 💰 **Income/Expense Tracking**: Automatically distinguishes between income and expenses
+- 📉 **Budget Management V3**: Set monthly limits with visual progress bars. Includes robust ID-based deletion and a clean table view for managing all configured budgets.
+- 🏦 **Net Savings Logic**: Accurately tracks savings by deducting spending from savings funds (e.g., spending from "Investment Fund" counts as a withdrawal, not a generic expense).
 
 ## Tech Stack
 
@@ -140,17 +142,24 @@ No environment variables needed - API URL is configured in `vercel.json`
 antigravity-budget/
 ├── backend/
 │   ├── main.py              # FastAPI app
+│   ├── budgets.json         # Budget data storage
 │   ├── services/
 │   │   ├── processing.py    # LLM processing logic
-│   │   └── sheets.py        # Google Sheets integration
+│   │   ├── sheets.py        # Google Sheets integration
+│   │   ├── analytics.py     # Charts & Summary logic
+│   │   ├── budgets.py       # Budget management logic
+│   │   └── categories.py    # Category management
 │   ├── requirements.txt
 │   └── credentials.json     # Google credentials (gitignored)
 ├── frontend/
 │   ├── src/
 │   │   ├── App.jsx
 │   │   ├── components/
-│   │   │   ├── Capture.jsx
-│   │   │   └── Confirmation.jsx
+│   │   │   ├── Capture.jsx      # Transaction Input
+│   │   │   ├── Confirmation.jsx # Review & Edit
+│   │   │   ├── Dashboard.jsx    # Analytics & Charts
+│   │   │   ├── BudgetManager.jsx # Budget Management
+│   │   │   └── CategorySettings.jsx # Settings
 │   │   └── index.css
 │   ├── package.json
 │   └── vercel.json
