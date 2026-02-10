@@ -5,7 +5,7 @@ from openai import OpenAI
 from datetime import datetime
 
 # OpenRouter Configuration
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "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")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "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")
 SITE_URL = os.getenv("SITE_URL", "http://localhost:5173")
 APP_NAME = "Antigravity Budget"
 
@@ -14,7 +14,7 @@ client = OpenAI(
   api_key=OPENROUTER_API_KEY,
 )
 
-MODEL = "nvidia/nemotron-nano-12b-v2-vl:free"
+MODEL = "google/gemini-2.5-flash-lite"
 
 from services.categories import EXPENSE_CATEGORIES, INCOME_CATEGORIES, DEFAULT_SAVINGS_CATEGORIES, VAULT_LOCATIONS
 
