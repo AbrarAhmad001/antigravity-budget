@@ -14,7 +14,7 @@ client = OpenAI(
   api_key=OPENROUTER_API_KEY,
 )
 
-MODEL = "google/gemini-2.5-flash-lite"
+MODEL = "nvidia/nemotron-nano-12b-v2-vl:free"
 
 from services.categories import EXPENSE_CATEGORIES, INCOME_CATEGORIES, DEFAULT_SAVINGS_CATEGORIES, VAULT_LOCATIONS
 
